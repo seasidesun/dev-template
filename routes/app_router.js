@@ -1,16 +1,21 @@
-"use strict";
+'use strict';
 
-var errorHandler = require('./error_handler');
-var userRounter = require('../lib/v1/user/router');
+var errorHandler = require('./error_handler.js');
 
 module.exports = function (app) {
 
-    app.get('/ping', function (req, res, next) {res.send("ok");});
+    //ping
+    app.get('/ping', function (req, res) { res.send('OK'); });
 
-    app.use('/user', userRounter);
-    
+    //views
+    app.get('/', function (req, res) { res.render('index', { title: 'Express' }); });
+
+    //api
+    // app.post('', controller);
+
     // 404 handler
     app.use(errorHandler.handler404);
+
     // Error handler
     app.use(errorHandler.errorHandler);
-};
+}

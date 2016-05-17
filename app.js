@@ -1,35 +1,45 @@
+'use strict';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
+var debug = require('debug')('APP');
 var bodyParser = require('body-parser');
-var fs = require('fs');
+var exphbs = require('express-handlebars');
 
 var config = require('./config');
-var appRouter = require('./routes/app_router');
+var appRouters = require('./routes/app_router');
 
 var app = express();
 
 // view engine setup
+var hbs = exphbs.create({
+    // Specify helpers which are only registered on this instance.
+    helpers: {ifeq: function (a, b, block) { return a == b ? block.fn() : block.inverse(); }},
+    defaultLayout: 'single',
+    extname: '.hbs'
+});
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
 
-// uncomment after placing your favicon in /public
-app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-// app.use(bodyParser.text({type: 'text/xml'}));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// create access,error stream
-var accessLogStream = fs.createWriteStream(__dirname + config.express.access_path, {flags: 'a'});
- 
-// log access 
-app.use(logger('combined', {stream: accessLogStream}));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-appRouter(app);
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(cookieParser());
 
-module.exports = app;
+appRouters(app);
+
+var server = app.listen(config.express.port, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  debug('Listening at http://%s:%s', host, port);
+  debug('Env: ' + app.get('env'));
+});
