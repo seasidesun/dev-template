@@ -15,8 +15,13 @@ function handler404(req, res, next) {
 function errorHandler(error, req, res, next) {
     dump(error);
     // debug('%o', error);
-    res.status(error.status || 500);
-    res.json(error);
+    var ret = {
+        status: error.status || 500,
+        code: error.code || '',
+    }
+
+    res.status(ret);
+    res.json(ret);
 }
 
 process.on('uncaughtException', function (error) {
