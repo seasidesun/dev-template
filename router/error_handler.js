@@ -1,6 +1,5 @@
 'use strict';
 
-var debug = require('debug')('ERROR');
 var util = require('util');
 
 // catch 404 and forward to error handler
@@ -14,19 +13,19 @@ function handler404(req, res, next) {
 
 function errorHandler(error, req, res, next) {
     dump(error);
-    // debug('%o', error);
+
     var ret = {
         status: error.status || 500,
         code: error.code || '',
     }
 
-    res.status(ret);
+    res.status(ret.status);
     res.json(ret);
 }
 
 process.on('uncaughtException', function (error) {
-    debug('uncaughtException ERROR');
-    debug(new Date);
+    console.error('uncaughtException ERROR');
+    console.error(new Date);
     dump(error);
 });
 

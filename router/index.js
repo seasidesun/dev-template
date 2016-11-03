@@ -1,17 +1,17 @@
 'use strict';
 
 var errorHandler = require('./error_handler.js');
+var pageRouter = require('../lib/page'),
+    apiRouter  = require('../lib/api');
 
 module.exports = function (app) {
 
     //ping
     app.get('/ping', function (req, res) { res.send('OK'); });
 
-    //views
-    app.get('/', function (req, res) { res.render('index', { title: 'Express' }); });
-
-    //api
-    // app.post('', controller);
+    //router
+    app.use('/api', apiRouter);
+    app.use('/', pageRouter);
 
     // 404 handler
     app.use(errorHandler.handler404);

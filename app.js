@@ -1,45 +1,32 @@
 'use strict';
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-// var cookieParser = require('cookie-parser');
-var debug = require('debug')('APP');
-var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars');
+// 标准库依赖
+var fs      = require('fs'),
+    path    = require('path');
+// 第三方库依赖
+var express = require('express'),
+    logger  = require('morgan'),
+    hbs     = require('hbs');
+// 自身依赖
+var router  = require('./router'),
+	config  = require('./config');
 
-var config = require('./config');
-var appRouters = require('./routes/app_router');
+var app     = express();
 
-var app = express();
-
-// view engine setup
-var hbs = exphbs.create({
-    // Specify helpers which are only registered on this instance.
-    helpers: {ifeq: function (a, b, block) { return a == b ? block.fn() : block.inverse(); }},
-    defaultLayout: 'single',
-    extname: '.hbs'
-});
-app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', hbs.engine);
-app.set('view engine', '.hbs');
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(favicon(__dirname + '/favicon.ico'));
-
+// log
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
 
-appRouters(app);
+// static file
+app.use(express.static(path.join(__dirname, 'public'), {maxAge: 86400000}));
 
-var server = app.listen(config.express.port, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+// vies engine
+app.set('view engine', 'hbs');
 
-  debug('Listening at http://%s:%s', host, port);
-  debug('Env: ' + app.get('env'));
+// rouer
+router(app);
+
+var port = config.express.port;
+var server = app.listen(port, function () {
+  console.log('Listening at %s', port);
+  console.log('Env: ' + app.get('env'));
 });
