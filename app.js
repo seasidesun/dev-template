@@ -6,6 +6,7 @@ var fs      = require('fs'),
 // 第三方库依赖
 var express = require('express'),
     logger  = require('morgan'),
+    favicon = require('serve-favicon'),
     hbs     = require('hbs');
 // 自身依赖
 var router  = require('./router'),
@@ -18,6 +19,7 @@ app.use(logger('dev'));
 
 // static file
 app.use(express.static(path.join(__dirname, 'public'), {maxAge: 86400000}));
+app.use(favicon(__dirname + '/favicon.ico'));
 
 // vies engine
 app.set('view engine', 'hbs');
@@ -27,6 +29,6 @@ router(app);
 
 var port = config.express.port;
 var server = app.listen(port, function () {
-  console.log('Listening at %s', port);
-  console.log('Env: ' + app.get('env'));
+    console.log('Listening at %s', port);
+    console.log('Env: ' + app.get('env'));
 });
