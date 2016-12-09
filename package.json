@@ -8,18 +8,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/seasidesun/dev_template.git"
+    "url": "git+https://github.com/seasidesun/dev-template.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/seasidesun/dev_template/issues"
+    "url": "https://github.com/seasidesun/dev-template/issues"
   },
-  "homepage": "https://github.com/seasidesun/dev_template#readme",
+  "homepage": "https://github.com/seasidesun/dev-template#readme",
   "dependencies": {
     "express": "^4.14.0",
     "hbs": "^4.0.1",
+    "mongoose": "^4.7.2",
     "morgan": "^1.7.0",
+    "node-restful": "^0.2.5",
     "serve-favicon": "^2.3.2"
   }
 }

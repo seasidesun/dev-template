@@ -3,6 +3,6 @@
 module.exports = {
     // 程序运行的端口
     express: {
-        port: process.env.PORT || 9001,
+        port: process.env.PORT || 3000,
     }
 }
