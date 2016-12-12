@@ -4,12 +4,15 @@ var webpack = require('webpack');
 module.exports = {
   devtool: 'eval-source-map',
 
-  entry:  __dirname + "/public/css/style.less",
+  entry:  {
+      "css/style": __dirname + "/app/css/style.less",
+      "main": __dirname + "/app/js/main.js",
+  },
   output: {
     path: __dirname + "/public/dist/",
-    filename: "style.css"
+    filename: "[name].js"
   },
-  module: {//在配置文件里添加JSON loader
+  module: {
     loaders: [
       {
         test: /\.json$/,
