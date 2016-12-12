@@ -6,5 +6,10 @@
 - add `error_handler` to handle errors
 - use `hbs` as the views engin
 
+### Todo
+
+- [X] add webpack at branch dev
+- [ ] use react
+- [ ] up the restful api
 
 ### ~~V1.0~~
