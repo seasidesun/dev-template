@@ -1,1 +1,2 @@
-console.log("Hello World");
+import bodyStyle from '../css/ui.less';
+import uiStyle from '../css/style.less';

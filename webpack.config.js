@@ -1,11 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var extractLESS = new ExtractTextPlugin('css/style.css');
 
 module.exports = {
   devtool: 'eval-source-map',
 
   entry:  {
-      "css/style": __dirname + "/app/css/style.less",
       "main": __dirname + "/app/js/main.js",
   },
   output: {
@@ -27,9 +28,12 @@ module.exports = {
         }
       },
       {
-        test: /\.less$/,
-        loader: "style-loader!css-loader!less-loader"
+          test : /\.(less|css)$/,
+          loader: ExtractTextPlugin.extract('style', 'css!less')
       }
     ]
-  }
+  },
+  plugins: [
+    extractLESS
+  ]
 }
