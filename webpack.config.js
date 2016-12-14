@@ -28,8 +28,8 @@ module.exports = {
         }
       },
       {
-          test : /\.(less|css)$/,
-          loader: ExtractTextPlugin.extract('style', 'css!less')
+        test : /\.(less|css)$/,
+        loader: ExtractTextPlugin.extract('style', 'css!less')
       }
     ]
   },
