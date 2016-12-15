@@ -6,3 +6,6 @@ npm-debug.log
 
 #OSX trash
 .DS_Store
+
+# webpack
+public/dist

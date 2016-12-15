@@ -2,7 +2,8 @@
 
 var errorHandler = require('./error_handler.js');
 var pageRouter = require('../lib/page'),
-    apiRouter  = require('../lib/api');
+    apiRouter  = require('../lib/api'),
+    restfulApi = require('../lib/api/restful_api');
 
 module.exports = function (app) {
 
@@ -12,6 +13,8 @@ module.exports = function (app) {
     //router
     app.use('/api', apiRouter);
     app.use('/', pageRouter);
+    //register restfulApi
+    restfulApi.register(app);
 
     // 404 handler
     app.use(errorHandler.handler404);
