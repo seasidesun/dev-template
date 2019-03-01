@@ -4,6 +4,7 @@ const dir = require('node-dir')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
+// 只在打包时支持文件命的hash，开发阶段保留原始名称（如果开发阶段也加hash，会使webpack-dev-server缓存过多的文件）
 const hashTag = process.env.NODE_ENV !== 'production' ? '' : '-[hash]'
 
 // 默认输出文件配置
@@ -13,9 +14,9 @@ const output = {
 }
 
 // polyfill垫片
-const DEFAULT_ENTRY = ['babel-polyfill']
+const DEFAULT_ENTRY = ['babel-polyfill'] // 默认支持polyfill，此配置会增加js文件大小，但是很值
 
-// 日志打印配置
+// 日志打印配置：只打印错误、modules列表、一些基本信息，简化日志
 const stats = {
     all: false,
     assets: true,
@@ -77,6 +78,7 @@ const defaultConfig = {
     plugins,
 }
 const getConfig = () => {
+    // 获取页面目录下的文件夹和html文件
     let pages = process.env.pages && process.env.pages.split('&') || []
     let pagesDirList = dir.files(path.resolve(__dirname, 'src/pages'), 'dir', null, { shortName: true, sync: true })
     let pagesHtmlList = dir.files(path.resolve(__dirname, 'src/pages'), 'file', null, { shortName: true, sync: true, recursive: false })
@@ -89,6 +91,7 @@ const getConfig = () => {
 
     const d = new Date()
     const time = `${d.toLocaleString()}`
+    // 给页面配置htmlWebpackPlugin
     pages.forEach((page) => {
         if (!pagesDirList.includes(page)) return
 

@@ -6,17 +6,20 @@
 
 ### V3.0
 
-- 多页面、定制化前端页面开发，开袋即食
+- 自动识别页面路径，多页面、定制化前端页面开发，开袋即食
 - 支持VUE（v2.x）、传统html开发
+- 内置基础css样式
 - 基于webpack：
     - 开发阶段支持dev-server、sourcemap、热更新、控制台日志优化
     - 支持sass，css，postcss（autoprefixer）
-    - 代码压缩，文件hash
+    - 代码压缩，拆分js和css文件，生产环境支持hash
+    - 静态文件压缩，小文件进行base64
 
 ### TODO
 
 - [ ] 支持hbs、ejs模版引擎
 - [ ] 文件云助手（七牛）：从开发到生产
+- [ ] 多chunks打包，内置cdn文件支持
 
 ### ~~V2.0~~
 
