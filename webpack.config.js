@@ -1,39 +1,33 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var extractLESS = new ExtractTextPlugin('css/style.css');
+const path = require('path')
+const PAGE = require('./webpack.pages.js')()
 
 module.exports = {
-  devtool: 'eval-source-map',
-
-  entry:  {
-      "main": __dirname + "/app/js/main.js",
-  },
-  output: {
-    path: __dirname + "/public/dist/",
-    filename: "[name].js"
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: "json"
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015']
+    entry: PAGE.entrys,
+    output: PAGE.output,
+    module: {
+        rules: PAGE.rules,
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src'),
         }
-      },
-      {
-        test : /\.(less|css)$/,
-        loader: ExtractTextPlugin.extract('style', 'css!less')
-      }
-    ]
-  },
-  plugins: [
-    extractLESS
-  ]
+    },
+    plugins: [
+        ...PAGE.plugins,
+    ],
+    devServer: {
+        host: '0.0.0.0',
+        port: 8080,
+        proxy: {
+            "/api": {
+                target: "http://localhost:3000",
+                pathRewrite: {"^/api" : ""},
+            },
+        },
+        https: false,
+        stats: PAGE.stats,
+    },
+    devtool: process.env.NODE_ENV === 'production' ? '' : 'source-map',
+    mode: process.env.NODE_ENV || 'development',
+    stats: PAGE.stats,
 }
