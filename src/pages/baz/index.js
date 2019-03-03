@@ -1,3 +1,6 @@
 import '@/styles/base.css'
 import '@/compontents/header/header.js'
-import '@/compontents/footer/footer.js'
+
+import footer from '@/compontents/footer/footer.js'
+
+document.getElementById('footer-template').innerHTML = footer

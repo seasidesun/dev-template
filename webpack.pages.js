@@ -43,6 +43,10 @@ const rules = [
         },
     },
     {
+        test:   /.hbs$/,
+        loader: "handlebars-loader",
+    },
+    {
         test: /\.js$/,
         loader: "babel-loader",
         exclude: [path.resolve(__dirname, 'node_modules/'), path.resolve(__dirname, 'dist/')],
