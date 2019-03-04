@@ -15,6 +15,12 @@ module.exports = {
     plugins: [
         ...PAGE.plugins,
     ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            name: 'common',
+        },
+    },
     devServer: {
         host: '0.0.0.0',
         port: 8080,

@@ -1,4 +1,3 @@
-
 const path = require('path')
 const dir = require('node-dir')
 const htmlWebpackPlugin = require('html-webpack-plugin')
@@ -107,7 +106,7 @@ const getConfig = () => {
             template: pagesHtmlList.includes(`${page}.html`) ? `./src/pages/${page}.html` : `./src/template.html`,
             filename: `${page}.html`,
             title: `${page}`,
-            chunks: [`${page}`],
+            chunks: [`${page}`, 'common'],
             date: time,
             minify: {
                 minifyJS: true,
