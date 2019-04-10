@@ -106,7 +106,7 @@ const getConfig = () => {
             template: pagesHtmlList.includes(`${page}.html`) ? `./src/pages/${page}.html` : `./src/template.html`,
             filename: `${page}.html`,
             title: `${page}`,
-            chunks: [`${page}`, 'common'],
+            chunks: [`${page}`],
             date: time,
             minify: {
                 minifyJS: true,
